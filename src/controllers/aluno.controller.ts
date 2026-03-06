@@ -3,7 +3,11 @@ import { AlunoService } from "../services/aluno.service";
 
 export class AlunoController {
   constructor(readonly _service = new AlunoService()) {}
-
+  /**
+   * 
+   * @param req 
+   * @param res 
+   */
   async selecionarTodos(req: Request, res: Response) {
     try {
       const alunos = await this._service.selecionarTodos();

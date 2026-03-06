@@ -18,14 +18,29 @@ export class AlunoService {
   }
   async criar(nome:string, email:string, matricula:string, curso:string) {
     const aluno = Aluno.criar(nome, email, matricula, curso);
-    await this._repository.create(aluno);
+    await this._repository.create({
+        nome: aluno.Nome,
+        email: aluno.Email,
+        matricula: aluno.Matricula,
+        curso: aluno.Curso,
+        mediaFinal: aluno.MediaFinal ?? null // problema do sql, não recebe undefined, tem que ser null
+    });
+    return aluno;
   }
   // "UPDATE alunos SET nome = ?, email = ?, matricula = ?, curso = ?, mediaFinal = ? WHERE id = ?;";
   async editar(nome: string, email: string, matricula: string, curso: string, id: number, mediaFinal?: number) {
     const aluno = Aluno.editar(nome, email, matricula, curso, id, mediaFinal);
-    await this._repository.update(id, { nome, email, matricula, curso, mediaFinal });
+    await this._repository.update(id, { 
+        nome: aluno.Nome, 
+        email: aluno.Email, 
+        matricula: aluno.Matricula, 
+        curso: aluno.Curso, 
+        mediaFinal: aluno.MediaFinal ?? null 
+    });
+    
     return aluno;
   }
+  
   async deletar(id:number) {
     return await this._repository.delete(id);
   }

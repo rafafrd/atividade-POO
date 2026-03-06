@@ -3,7 +3,7 @@ import { RowDataPacket } from "mysql2";
 // Ipessoa (interface): mostrardados() -> abstract class Pessoa: -nome, -email, +Pessoa +MostrarDados() -> Aluno: -matricula, -curso, +mediaFinal, +MostrarDados(), +estaAprovado(), +inserir(), +alterar()
 
 export interface Ipessoa {
-  mostrarDados(): void;
+  mostrarDados(): string;
 }
 
 export interface IAlunoRow extends RowDataPacket { // RowDataPacket é necessário para o mysql2 reconhecer que essa interface é um resultado de uma query

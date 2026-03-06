@@ -6,9 +6,9 @@ const alunoController = new AlunoController();
 
 // get
 alunoRoutes.get("/", (req, res) => alunoController.selecionarTodos(req, res));
-alunoRoutes.get("/:id", (req, res) => alunoController.selecionarPorId(req, res));
 alunoRoutes.get("/nome", (req, res) => alunoController.selecionarPorNome(req, res));
 alunoRoutes.get("/email", (req, res) => alunoController.selecionarPorEmail(req, res));
+alunoRoutes.get("/:id", (req, res) => alunoController.selecionarPorId(req, res));
 
 // post
 alunoRoutes.post("/", (req, res) => alunoController.criar(req, res));
