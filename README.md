@@ -790,14 +790,14 @@ O projeto utiliza `nodemon` com `ts-node` para hot-reload automático durante o 
 
 ```mermaid
 mindmap
-  root(("🏛️ Padrões\nAplicados"))
+  root(("🏛️ Padrões Aplicados"))
     Factory Method
-      Aluno.criar()
-      Aluno.editar()
-      Aluno.deletar()
-      Professor.criar()
-      Professor.editar()
-      Professor.deletar()
+      Aluno.criar
+      Aluno.editar
+      Aluno.deletar
+      Professor.criar
+      Professor.editar
+      Professor.deletar
     Repository Pattern
       AlunoRepository
       ProfessorRepository
@@ -810,8 +810,8 @@ mindmap
       Model
     OOP
       Herança
-        Pessoa → Aluno
-        Pessoa → Professor
+        Pessoa - Aluno
+        Pessoa - Professor
       Abstração
         Pessoa abstract
         IPessoa interface
@@ -819,6 +819,7 @@ mindmap
         Getters e Setters
         Validações privadas
 ```
+
 
 | Padrão                   | Onde é Aplicado                                                                    | Benefício                                                                                  |
 | ------------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
