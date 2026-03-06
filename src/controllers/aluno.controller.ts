@@ -4,9 +4,12 @@ import { AlunoService } from "../services/aluno.service";
 export class AlunoController {
   constructor(readonly _service = new AlunoService()) {}
   /**
-   * 
-   * @param req 
-   * @param res 
+   * Retorna todos os alunos cadastrados no banco de dados.
+   * @param req - Requisição HTTP sem parâmetros obrigatórios.
+   * @param res - Resposta HTTP com a lista de alunos.
+   * @example
+   * // GET /alunos
+   * // Retorno 200: { "alunos": [{ id: 1, nome: "João", email: "joao@email.com", matricula: "2024001", curso: "ADS", mediaFinal: 8 }] }
    */
   async selecionarTodos(req: Request, res: Response) {
     try {
@@ -17,6 +20,15 @@ export class AlunoController {
     }
   }
 
+  /**
+   * Retorna um aluno específico de acordo com o ID informado.
+   * @param req - Requisição HTTP com `id` como parâmetro de rota.
+   * @param res - Resposta HTTP com o aluno encontrado (200) ou erro 404 caso não exista.
+   * @example
+   * // GET /alunos/1
+   * // Retorno 200: { "aluno": { id: 1, nome: "João", email: "joao@email.com", matricula: "2024001", curso: "ADS" } }
+   * // Retorno 404: { "error": "Aluno não encontrado" }
+   */
   async selecionarPorId(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
@@ -31,6 +43,15 @@ export class AlunoController {
     }
   }
 
+  /**
+   * Retorna alunos cujo nome contenha o texto informado via query parameter.
+   * @param req - Requisição HTTP com `nome` como query parameter (string obrigatória).
+   * @param res - Resposta HTTP com a lista de alunos correspondentes (200) ou erro 400 se inválido.
+   * @example
+   * // GET /alunos/nome?nome=João
+   * // Retorno 200: { "alunos": [{ id: 1, nome: "João Silva", ... }] }
+   * // Retorno 400: { "error": "Nome deve ser um texto" }
+   */
   async selecionarPorNome(req: Request, res: Response) {
     try {
       const {nome} = req.query;
@@ -44,6 +65,15 @@ export class AlunoController {
     }
   }
 
+  /**
+   * Retorna um aluno cujo email corresponda ao texto informado via query parameter.
+   * @param req - Requisição HTTP com `email` como query parameter (string obrigatória).
+   * @param res - Resposta HTTP com o aluno encontrado (200), erro 404 se não existir, ou 400 se inválido.
+   * @example
+   * // GET /alunos/email?email=joao@email.com
+   * // Retorno 200: { "aluno": { id: 1, nome: "João", email: "joao@email.com", ... } }
+   * // Retorno 404: { "error": "Aluno não encontrado" }
+   */
   async selecionarPorEmail(req: Request, res: Response) {
     try {
       const {email} = req.query;
@@ -61,6 +91,16 @@ export class AlunoController {
     }
   }
 
+  /**
+   * Cria e persiste um novo aluno no banco de dados.
+   * @param req - Requisição HTTP com `nome`, `email`, `matricula` e `curso` (todos strings) no body.
+   * @param res - Resposta HTTP com o aluno criado (201) ou erro de validação (400).
+   * @example
+   * // POST /alunos
+   * // Body: { "nome": "João", "email": "joao@email.com", "matricula": "2024001", "curso": "ADS" }
+   * // Retorno 201: { "aluno": { nome: "João", email: "joao@email.com", matricula: "2024001", curso: "ADS" } }
+   * // Retorno 400: { "error": "Dados inválidos para criação de aluno" }
+   */
   async criar(req: Request, res: Response) {
     try {
       const {nome, email, matricula, curso} = req.body;
@@ -74,6 +114,16 @@ export class AlunoController {
     }
   }
 
+  /**
+   * Atualiza os dados de um aluno existente no banco de dados.
+   * @param req - Requisição HTTP com `id` nos params e `nome`, `email`, `matricula`, `curso` (strings) e `mediaFinal` (opcional, number) no body.
+   * @param res - Resposta HTTP com o aluno atualizado (200) ou erro de validação (400).
+   * @example
+   * // PUT /alunos/1
+   * // Body: { "nome": "João Atualizado", "email": "joao@email.com", "matricula": "2024001", "curso": "ADS", "mediaFinal": 8.5 }
+   * // Retorno 200: { "aluno": { nome: "João Atualizado", email: "joao@email.com", ... } }
+   * // Retorno 400: { "error": "Dados inválidos para edição de aluno" }
+   */
   async editar(req: Request, res: Response){
     // "UPDATE alunos SET nome = ?, email = ?, matricula = ?, curso = ?, mediaFinal = ? WHERE id = ?;";
     try {
@@ -89,6 +139,14 @@ export class AlunoController {
     }
   }
 
+  /**
+   * Remove um aluno do banco de dados pelo seu ID.
+   * @param req - Requisição HTTP com `id` como parâmetro de rota.
+   * @param res - Resposta HTTP com mensagem de sucesso (200) ou erro (500).
+   * @example
+   * // DELETE /alunos/1
+   * // Retorno 200: { "message": "Aluno deletado com sucesso" }
+   */
   async deletar(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);

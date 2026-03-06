@@ -53,6 +53,14 @@ abstract class Pessoa {
     this._email = value;
   }
 
+  /**
+   * Valida o nome informado, garantindo que tenha entre 3 e 45 caracteres.
+   * @param value - Nome a ser validado.
+   * @throws Error se o nome tiver menos de 3 ou mais de 45 caracteres.
+   * @example
+   * this._validarNome("Ma"); // throw Error: "Nome da pessoa deve ter pelo menos 3 caracteres"
+   * this._validarNome("Maria"); // ok
+   */
   private _validarNome(value:string): void {
     if(!value || value.trim().length < 3) {
       throw new Error("Nome da pessoa deve ter pelo menos 3 caracteres")
@@ -62,6 +70,14 @@ abstract class Pessoa {
     }
   }
 
+  /**
+   * Valida o email informado, garantindo que esteja em formato válido.
+   * @param value - Email a ser validado.
+   * @throws Error se o email não estiver no formato correto (usuario@dominio.ext).
+   * @example
+   * this._validarEmail("email-invalido"); // throw Error: "Email da pessoa inválido"
+   * this._validarEmail("maria@email.com"); // ok
+   */
   private _validarEmail(value:string): void {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
@@ -101,19 +117,57 @@ export class Professor extends Pessoa {
   this._cargaHoraria = value;
   }
 
+  /**
+   * Retorna uma string formatada com todos os dados do professor.
+   * @returns String com nome, email, disciplina e carga horária do professor.
+   * @example
+   * professor.mostrarDados();
+   * // => "Professor: Maria, Email: maria@email.com, Disciplina: Matemática, Carga Horária: 40"
+   */
   public mostrarDados(): string {
     return (`Professor: ${this.Nome}, Email: ${this.Email}, Disciplina: ${this.Disciplina}, Carga Horária: ${this.CargaHoraria}`);
   }
 
   // Desing pattern => Factory Method
+  /**
+   * Factory Method: cria uma nova instância de Professor sem ID (para inserção no banco).
+   * @param nome - Nome do professor.
+   * @param email - Email do professor.
+   * @param disciplina - Disciplina ministrada.
+   * @param cargaHoraria - Carga horária semanal.
+   * @returns Nova instância de Professor validada.
+   * @example
+   * const professor = Professor.criar("Maria", "maria@email.com", "Matemática", 40);
+   * // professor.Nome => "Maria", professor.Disciplina => "Matemática"
+   */
   public static criar(nome: string, email: string, disciplina: string, cargaHoraria: number): Professor {
     return new Professor(nome, email, disciplina, cargaHoraria);
   }
 
+  /**
+   * Factory Method: cria uma instância de Professor com ID para atualização no banco.
+   * @param nome - Novo nome do professor.
+   * @param email - Novo email do professor.
+   * @param id - ID do professor a ser editado.
+   * @param disciplina - Nova disciplina do professor.
+   * @param cargaHoraria - Nova carga horária do professor.
+   * @returns Instância de Professor com os dados atualizados.
+   * @example
+   * const professor = Professor.editar("Maria Nova", "maria@email.com", 1, "Física", 30);
+   * // professor.Id => 1, professor.Disciplina => "Física"
+   */
   public static editar(nome:string, email:string, id:number, disciplina:string, cargaHoraria:number): Professor {
     return new Professor(nome, email, disciplina, cargaHoraria, id);
   }
 
+  /**
+   * Factory Method: cria uma instância mínima de Professor contendo apenas o ID, para deleção no banco.
+   * @param id - ID do professor a ser deletado.
+   * @returns Instância de Professor com dados fictícios e apenas o ID definido.
+   * @example
+   * const professor = Professor.deletar(1);
+   * // professor.Id => 1
+   */
   public static deletar(id:number): Professor {
     const professor = new Professor("N/A", "N/A", "N/A", 0, id);
     return professor;
