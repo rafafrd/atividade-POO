@@ -17,8 +17,8 @@ export interface IAlunoRow extends RowDataPacket { // RowDataPacket é necessár
 
 abstract class Pessoa {
   readonly _id?: number;
-  private _nome: string = ""; // deixando vazia para evitar erros de undefined, o nome é obrigatório, então não tem problema
-  private _email: string;
+  protected _nome: string = ""; // deixando vazia para evitar erros de undefined, o nome é obrigatório, então não tem problema
+  protected _email: string;
   readonly _dataCad?: Date;
 
   constructor(nome: string, email: string, id?: number) {
