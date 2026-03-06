@@ -1,0 +1,11 @@
+import express from 'express';
+import { EnvVar } from './config/EnvVar';
+import router from './routes/routes';
+
+const app = express();
+app.use(express.json());
+
+app.use("/",router);
+
+
+app.listen(EnvVar.SERVER_PORT, () => {console.log(`Server rodando na porta http://localhost:${EnvVar.SERVER_PORT}`)});
