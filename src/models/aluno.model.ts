@@ -165,8 +165,10 @@ export class Aluno extends Pessoa {
    * const aluno = Aluno.criar("João", "joao@email.com", "2024001", "ADS");
    * // aluno.Nome => "João", aluno.Curso => "ADS"
    */
-  public static criar(nome: string, email: string, matricula: string, curso: string): Aluno {
-    return new Aluno(nome, email, matricula, curso);
+  public static criar(nome: string, email: string, matricula: string, curso: string, mediaFinal?: number): Aluno {
+    const aluno = new Aluno(nome, email, matricula, curso);
+    aluno.MediaFinal = mediaFinal;
+    return aluno;
   }
 
   /**

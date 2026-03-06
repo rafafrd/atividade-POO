@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS alunos (
     email VARCHAR(100) UNIQUE NOT NULL,
     data_cad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     matricula VARCHAR(7) UNIQUE NOT NULL,
-    curso VARCHAR(50) NOT NULL,
-    mediaFinal DECIMAL(2, 2)
+    l / curso VARCHAR(50) NOT NULL,
+    mediaFinal DECIMAL(10, 2)
 );
 
 CREATE TABLE IF NOT EXISTS professores (

@@ -58,8 +58,8 @@ export class AlunoService {
    * const aluno = await service.criar("João", "joao@email.com", "2024001", "ADS");
    * // aluno.Nome => "João", aluno.Matricula => "2024001"
    */
-  async criar(nome:string, email:string, matricula:string, curso:string) {
-    const aluno = Aluno.criar(nome, email, matricula, curso);
+  async criar(nome:string, email:string, matricula:string, curso:string, mediaFinal?: number) {
+    const aluno = Aluno.criar(nome, email, matricula, curso, mediaFinal);
     await this._repository.create({
         nome: aluno.Nome,
         email: aluno.Email,
@@ -90,7 +90,7 @@ export class AlunoService {
         email: aluno.Email, 
         matricula: aluno.Matricula, 
         curso: aluno.Curso, 
-        mediaFinal: aluno.MediaFinal ?? null 
+        mediaFinal: aluno.MediaFinal
     });
     
     return aluno;

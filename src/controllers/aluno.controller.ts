@@ -103,11 +103,11 @@ export class AlunoController {
    */
   async criar(req: Request, res: Response) {
     try {
-      const {nome, email, matricula, curso} = req.body;
+      const {nome, email, matricula, curso, mediaFinal} = req.body;
       if (!nome || !email || !matricula || !curso || typeof nome !== "string" || typeof email !== "string" || typeof matricula !== "string" || typeof curso !== "string") {
         return res.status(400).json({"error": "Dados inválidos para criação de aluno"});
       }
-      const novoAluno = await this._service.criar(nome, email, matricula, curso);
+      const novoAluno = await this._service.criar(nome, email, matricula, curso, mediaFinal);
       res.status(201).json({"aluno": novoAluno});
     } catch (error: unknown) {
       res.status(500).json({"error": "Erro ao criar aluno", "details": error instanceof Error ? error.message : String(error)});
